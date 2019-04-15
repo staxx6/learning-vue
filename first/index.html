@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.js</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+
+    <div id="app">
+        <input type="text" v-on:input="changeTitle">
+        <h1 v-once>{{ title }}</h1>
+        <p>{{ title }}</p>
+        <p>{{ sayHello() }} - <a v-bind:href="link">Google</a></p>
+        <hr>
+        <p v-html="finishedLink"></p>
+        <p>{{ number + 2 + Math.random() }}</p>
+        <img v-bind:src="img" alt="vue logo" style="width: 10%; height: 10%;">
+        <div>
+            <input type="text" v-bind:value="title">
+        </div>
+        <hr>
+        <button v-on:click="inc(2, $event)">Click me</button>
+        <button v-on:click="counter++">Click me</button>
+        <p>{{ counter }}</p>
+        <p v-on:mousemove="updateCoordinates">
+            Coordinates: {{ x }} / {{ y }}
+            - <span v-on:mousemove.stop="">DEAD SPOT</span>
+        </p>
+        <input type="text" v-on:keydown.enter.space="alertMe">
+        <p>{{ keyDown }}</p>
+        <hr>
+        <input type="text" v-bind:value="name">
+        <p>{{ name }}</p>
+        <hr>
+        <button v-on:click="counter++">Increase</button>
+        <button v-on:click="counter--">Decrease</button>
+        <button v-on:click="secondCounter++">Increase Second</button>
+        <p>Counter: {{ counter }} | {{ secondCounter }} </p>
+        <p>Result: {{ result() }} | {{ output }}</p>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                title: 'Hello World',
+                link: 'http://google.de',
+                finishedLink: '<a href="http://google.com">Google</a>',
+                number: 2,
+                img: '../vue-logo.png',
+                counter: 0,
+                secondCounter: 0,
+                x: 0,
+                y: 0,
+                keyDown: 0,
+                name: 'staxx6',
+
+            },
+            computed: {
+                output() {
+                    console.log('computed');
+                    return this.counter > 5 ? 'Greater 5' : 'Smaller 5';
+                }
+            },
+            watch: {
+                counter(value) {
+                    var vm = this;
+                    setTimeout(function() {
+                        vm.counter = 0;
+                    }, 2000);
+                }
+            },
+            methods: {
+                changeTitle(event) {
+                    this.title = event.target.value;
+                },
+                sayHello() {
+                    this.title = 'Hello!';
+                    return this.title;
+                },
+                inc(step, event) {
+                    this.counter += step;
+                },
+                updateCoordinates(event) {
+                    this.x = event.clientX;
+                    this.y = event.clientY;
+                },
+                alertMe(e) {
+                    this.keyDown = e.target.value;
+                    alert('Alert!');
+                },
+                increase() {
+                    this.counter++;
+                    // this.result = this.counter > 5 ? 'Greater 5' : 'Smaller 5';
+                },
+                decrease() {
+                    this.counter--;
+                    // this.result = this.counter > 5 ? 'Greater 5' : 'Smaller 5';
+                },
+                result() {
+                    console.log('method');
+                    return this.counter > 5 ? 'Greater 5' : 'Smaller 5';
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
