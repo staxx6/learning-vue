@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.js</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+
+    <div id="app">
+        <h1>{{ title }}</h1>
+        <button @click="title = 'Changed'">Update Title</button>
+        <button @click="destroy">Destroy</button>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                title: 'The VueJS instance'
+            },
+            beforeCreate() {
+                console.log('beforeCreate');
+            },
+            created() {
+              console.log('created');
+            },
+            beforeMount() {
+                console.log('beforeMount');
+            },
+            mounted() {
+                console.log('mounted');
+            },
+            beforeUpdate() {
+                console.log('beforeUpdate');
+            },
+            updated() {
+                console.log('updated');
+            },
+            beforeDestroy() {
+                console.log('beforeDestroy');
+            },
+            destroyed() {
+                console.log('destroyed');
+            },
+            methods: {
+                destroy() {
+                    this.$destroy();
+                }
+            }
+        });
+    </script>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 16pt;
+            padding: 10px;
+        }
+    </style>
+
+</body>
+</html>
